@@ -1,0 +1,29 @@
+{
+  "name": "react-master-mind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boogeey/react-master-mind.git"
+  },
+  "keywords": [
+    "master-mind",
+    "react",
+    "javascript"
+  ],
+  "author": "Christoffer Lindberg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Boogeey/react-master-mind/issues"
+  },
+  "homepage": "https://github.com/Boogeey/react-master-mind#readme",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "^3.0.1"
+  }
+}
