@@ -171,23 +171,19 @@ export class Game extends React.Component {
         return GameStateEnum.ONGOING;
     }
 
-    shuffle = (arra1) => {
-        let ctr = arra1.length;
-        let temp;
-        let index;
-
-        // While there are elements in the array
-        while (ctr > 0) {
+    shuffle = (arr) => {
+        let count = arr.length, temp, index;
+        while (count > 0) {
             // Pick a random index
-            index = Math.floor(Math.random() * ctr);
-            // Decrease ctr by 1
-            ctr--;
+            index = Math.floor(Math.random() * count);
+            count--;
+
             // And swap the last element with it
-            temp = arra1[ctr];
-            arra1[ctr] = arra1[index];
-            arra1[index] = temp;
+            temp = arr[count];
+            arr[count] = arr[index];
+            arr[index] = temp;
         }
-        return arra1;
+        return arr;
     }
 
     onDoneRowClick = (rowIndex) => {
@@ -218,10 +214,6 @@ export class Game extends React.Component {
         }));
     }
 
-    onBannerClick = () => {
-        this.newGame();
-    }
-
     render() {
         return (
             <div className="container">
@@ -234,7 +226,6 @@ export class Game extends React.Component {
                 </header>
 
                 <div className="game">
-
                     <ColorSelector
                         colors={this.state.pegs}
                         handleClick={this.onSelectColorClick}
@@ -250,7 +241,7 @@ export class Game extends React.Component {
                 </div>
                 <Banner
                     gameState={this.state.gameState}
-                    handleBannerClick={this.onBannerClick}></Banner>
+                ></Banner>
             </div>
         );
     }

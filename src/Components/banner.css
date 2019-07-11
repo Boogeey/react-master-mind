@@ -5,17 +5,9 @@
     background: black;
     width: 100%;
     text-align: center;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 1s ease-out;
 }
 
 .show {
     display: block;
     opacity: 0.8;
-}
-
-.state-text {
-    color: white;
-    z-index: 2;
 }

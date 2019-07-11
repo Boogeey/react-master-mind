@@ -4,7 +4,7 @@ import './banner.css';
 
 export default function Banner(props) {
 
-    let text = "Sample Text";
+    let text = "";
     let classes = "banner";
     if (props.gameState === GameStateEnum.GAMEOVER) {
         text = "Game Over";
@@ -14,13 +14,10 @@ export default function Banner(props) {
         classes += " show";
     }
     return (
-        <div
-            className={classes}
-            onClick={() => props.handleBannerClick()}>
-            <h1 className="state-text">
+        <div className={classes}>
+            <h1>
                 {text}
             </h1>
-
         </div>
     );
 }

@@ -27,6 +27,4 @@ export default function AnswerRow(props) {
             </div>
         </div>
     );
-
-
 }
