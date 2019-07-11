@@ -1,20 +1,12 @@
 import React from 'react';
-import Board from './board';
-import { ColorSelector, ColorEnum } from './color-selector';
-import Banner from './banner';
-import { AiPlayer } from './ai';
-
-const AnswerEnum = {
-    WRONG: 0,
-    COLOR: 1,
-    COLORANDPLACE: 2
-}
-
-export const GameState = {
-    ONGOING: 0,
-    GAMEOVER: 1,
-    WON: 2
-}
+import './game.css';
+import Board from './Components/board';
+import { ColorSelector } from './Components/color-selector';
+import Banner from './Components/banner';
+import { AiPlayer } from './Logic/ai';
+import { GameStateEnum } from './Logic/game-state-enum';
+import { ResultEnum } from './Logic/result-enum';
+import { ColorEnum } from './Logic/color-enum';
 
 const intialState = {
     pegs: [
@@ -28,7 +20,7 @@ const intialState = {
     // On each row first 4 positions are for the player, last 4 is result
     rows: Array(12).fill(0).map(x => Array(8).fill(x)),
     currentRowIndex: 0,
-    gameState: GameState.ONGOING
+    gameState: GameStateEnum.ONGOING
 };
 
 export class Game extends React.Component {
@@ -39,7 +31,7 @@ export class Game extends React.Component {
     }
 
     makeAiTurn = (flag) => {
-        if (this.state.gameState !== GameState.ONGOING) {
+        if (this.state.gameState !== GameStateEnum.ONGOING) {
             return;
         }
         if (!flag) {
@@ -106,7 +98,7 @@ export class Game extends React.Component {
 
     onPositionPegClick = (rowIndex, position) => {
         if (this.state.currentRowIndex !== rowIndex ||
-            this.state.gameState !== GameState.ONGOING)
+            this.state.gameState !== GameStateEnum.ONGOING)
             return;
 
         const selectedColor = this.state.pegs.find(item => item.isSelected);
@@ -144,13 +136,12 @@ export class Game extends React.Component {
 
     calculateResult = (currentRow) => {
         let copyOfAnswers = this.state.answer.slice();
-        console.log(copyOfAnswers);
         let copyOfRow = currentRow.slice();
         let countArray = [];
         // check position and color;
         for (let i = 0; i < copyOfAnswers.length; i++) {
             if (copyOfRow[i] === copyOfAnswers[i]) {
-                countArray.push(AnswerEnum.COLORANDPLACE);
+                countArray.push(ResultEnum.COLORANDPLACE);
                 copyOfAnswers[i] = copyOfRow[i] = 0;
             }
         }
@@ -160,7 +151,7 @@ export class Game extends React.Component {
             if (copyOfRow[i] !== 0) {
                 for (let j = 0; j < copyOfAnswers.length; j++) {
                     if (copyOfRow[i] === copyOfAnswers[j] && copyOfAnswers[j] !== 0) {
-                        countArray.push(AnswerEnum.COLOR);
+                        countArray.push(ResultEnum.COLOR);
                         copyOfAnswers[j] = copyOfRow[i] = 0;
                     }
                 }
@@ -175,9 +166,9 @@ export class Game extends React.Component {
         });
 
         if (countArray.length === 4 && countArray.every((value) => value === 2)) {
-            return GameState.WON;
+            return GameStateEnum.WON;
         }
-        return GameState.ONGOING;
+        return GameStateEnum.ONGOING;
     }
 
     shuffle = (arra1) => {
@@ -201,7 +192,7 @@ export class Game extends React.Component {
 
     onDoneRowClick = (rowIndex) => {
         if (this.state.currentRowIndex !== rowIndex ||
-            this.state.gameState !== GameState.ONGOING)
+            this.state.gameState !== GameStateEnum.ONGOING)
             return;
 
         const newRows = this.state.rows.map((row) => {
@@ -215,8 +206,8 @@ export class Game extends React.Component {
 
         let newGameState = this.calculateResult(currentRow);
         let newRowIndex = rowIndex + 1;
-        if (newGameState !== GameState.WON && newRowIndex >= this.state.rows.length) {
-            newGameState = GameState.GAMEOVER
+        if (newGameState !== GameStateEnum.WON && newRowIndex >= this.state.rows.length) {
+            newGameState = GameStateEnum.GAMEOVER
         }
 
         this.setState(prevState => ({
@@ -233,7 +224,7 @@ export class Game extends React.Component {
 
     render() {
         return (
-            <div className="App">
+            <div className="container">
                 <header>
                     <h1> Master Mind </h1>
                     <div className="menu">

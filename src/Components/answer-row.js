@@ -1,13 +1,13 @@
 import React from 'react';
-import { ColorEnum } from './color-selector';
-import { GameState } from './game';
+import { ColorEnum } from '../Logic/color-enum';
+import { GameStateEnum } from '../Logic/game-state-enum';
 
 export default function AnswerRow(props) {
 
     const renderAnswerPegs = (props) => {
         return props.row.map((value, position) => {
             let key = "white";
-            if (props.gameState !== GameState.ONGOING) {
+            if (props.gameState !== GameStateEnum.ONGOING) {
                 key = Object.keys(ColorEnum)[value];
             }
             let classes = `circle ${key.toLowerCase()}`;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ColorEnum } from './color-selector';
+import { ColorEnum } from '../Logic/color-enum';
 
 export default function Row(props) {
 
