@@ -32,6 +32,7 @@ export class Game extends React.Component {
 
     makeAiTurn = (flag) => {
         if (this.state.gameState !== GameStateEnum.ONGOING) {
+            setTimeout(() => this.newAiGame(), 1000);
             return;
         }
         if (!flag) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ColorEnum } from '../Logic/color-enum';
+import { GameStateEnum } from '../Logic/game-state-enum';
 
 export default function Row(props) {
 
@@ -50,7 +51,7 @@ export default function Row(props) {
 
     let side;
     let classes = "row";
-    if (props.rowIndex === props.currentRowIndex) {
+    if (props.rowIndex === props.currentRowIndex && props.gameState === GameStateEnum.ONGOING) {
         side = <button className="done-button"
             onClick={() => props.handleDoneRowClick(props.rowIndex)}>
             Ok</button>;

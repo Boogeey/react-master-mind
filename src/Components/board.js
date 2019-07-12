@@ -12,6 +12,7 @@ export default class Board extends React.Component {
                 handlePositionPegClick={this.props.handlePositionPegClick}
                 handleDoneRowClick={this.props.handleDoneRowClick}
                 currentRowIndex={this.props.currentRowIndex}
+                gameState={this.props.gameState}
             ></Row>
         });
     };
