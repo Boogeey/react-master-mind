@@ -8,3 +8,5 @@ To get started..
 npm install
 and
 npm start
+
+![alt text](https://github.com/Boogeey/react-master-mind/blob/master/src/Docs/master-mind.PNG)
