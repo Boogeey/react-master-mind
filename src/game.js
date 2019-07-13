@@ -28,19 +28,28 @@ export class Game extends React.Component {
         super(props);
         this.state = intialState;
         this.state.answer = this.generateAnswer();
+        this.makeAiTurnTimeout = null;
+        this.makeActionTimeout = null;
+        this.newAiGameTimeout = null;
+    }
+
+    stopTimeouts = () => {
+        clearTimeout(this.makeAiTurnTimeout);
+        clearTimeout(this.makeActionTimeout);
+        clearTimeout(this.newAiGameTimeout);
     }
 
     makeAiTurn = (flag) => {
         if (this.state.gameState !== GameStateEnum.ONGOING) {
-            setTimeout(() => this.newAiGame(), 1000);
+            this.newAiGameTimeout = setTimeout(() => this.newAiGame(), 1000);
             return;
         }
         if (!flag) {
             let move = this.ai.makeMove();
             for (let i = 0; i < move.length; i++) {
-                setTimeout(() => this.makeAiAction(move, i), i * 250);
+                this.makeActionTimeout = setTimeout(() => this.makeAiAction(move, i), i * 250);
             }
-            setTimeout(() => {
+            this.makeAiTurnTimeout = setTimeout(() => {
                 this.onDoneRowClick(this.state.currentRowIndex);
                 this.makeAiTurn(true);
             }, 2500);
@@ -59,11 +68,13 @@ export class Game extends React.Component {
     }
 
     newGame = () => {
+        this.stopTimeouts();
         let newAnswer = this.generateAnswer()
         this.setState({ ...intialState, answer: newAnswer });
     }
 
     newAiGame = () => {
+        this.stopTimeouts();
         let newAnswer = this.generateAnswer()
         this.setState({ ...intialState, answer: newAnswer }, () => {
             this.ai = new AiPlayer();
